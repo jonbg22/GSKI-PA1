@@ -1,7 +1,12 @@
 
 def modulus(a, b):  # ONLY NEEDS TO WORK FOR POSITIVE INTEGERS
     #TODO: remove 'pass' and implement functionality
-    pass
+    if b == a:
+        return 0
+    elif b < a:
+        return modulus(a-b, b)
+    else:
+        return a
 
 
 def how_many(lis1, lis2):
