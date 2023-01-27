@@ -11,7 +11,12 @@ def modulus(a, b):  # ONLY NEEDS TO WORK FOR POSITIVE INTEGERS
 
 def how_many(lis1, lis2):
     #TODO: remove 'pass' and implement functionality
-    pass
+    if not lis1 or not lis2:
+        return 0
+    elif lis1[0] not in lis2:
+        return how_many(lis1[1:], lis2)
+    elif lis1[0] in lis2:
+        return 1 + how_many(lis1[1:], lis2)
 
 
 # FEEL FREE TO EDIT THE TESTS AND MAKE THEM BETTER
@@ -42,6 +47,7 @@ def run_recursion_program():
     test_how_many(['a', 'f', 'd', 't'], ['a', 'b', 'c', 'd', 'e'])
     test_how_many(['a', 'b', 'f', 'g', 'a', 't', 'c'], ['a', 'b', 'c', 'd', 'e'])
     test_how_many(['f', 'g', 't'], ['a', 'b', 'c', 'd', 'e'])
+
 
 
 if __name__ == "__main__":
