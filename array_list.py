@@ -110,8 +110,8 @@ class ArrayList:
     #Time complexity: O(n) - linear time in size of list
     #Time complexity: O(log n) - logarithmic time in size of list
     def find(self, value):
-        # TODO: remove 'pass' and implement functionality
-        pass
+        if self.size == 0:
+            raise Empty
 
     #Time complexity: O(n) - linear time in size of list
     def remove_value(self, value):
