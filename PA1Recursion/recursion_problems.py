@@ -1,6 +1,5 @@
 
 def modulus(a, b):  # ONLY NEEDS TO WORK FOR POSITIVE INTEGERS
-    #TODO: remove 'pass' and implement functionality
     if b == a:
         return 0
     elif b < a:
@@ -10,7 +9,6 @@ def modulus(a, b):  # ONLY NEEDS TO WORK FOR POSITIVE INTEGERS
 
 
 def how_many(lis1, lis2):
-    #TODO: remove 'pass' and implement functionality
     if not lis1 or not lis2:
         return 0
     elif lis1[0] not in lis2:

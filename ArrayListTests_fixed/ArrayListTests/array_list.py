@@ -34,8 +34,9 @@ class ArrayList:
 
     #Time complexity: O(n) - linear time in size of list
     def insert(self, value, index, ordered = False):
-        if index > self.size-1 or index < 0:
-            raise IndexOutOfBounds
+        if index >= self.size+1 or index < 0:
+            #raise IndexOutOfBounds
+            print("lala")
         if not ordered:
             self.is_ordered = False
 
@@ -49,7 +50,7 @@ class ArrayList:
 
     #Time complexity: O(1) - constant time
     def append(self, value, ordered = False):
-        self.insert(value,self.size, ordered)
+        self.insert(value, self.size, ordered)
 
     #Time complexity: O(1) - constant time
     def set_at(self, value, index):
@@ -171,10 +172,12 @@ if __name__ == "__main__":
     # arr_lis.insert_ordered(8)
     # arr_lis.insert_ordered(17)
     # arr_lis.insert_ordered(19)
+    arr_lis.prepend(0)
     arr_lis.append(2)
     arr_lis.append(3)
     arr_lis.append("abc")
     arr_lis.append("lol")
+    arr_lis.prepend(2)
 
     print(str(arr_lis))
     print(arr_lis.find(2))
