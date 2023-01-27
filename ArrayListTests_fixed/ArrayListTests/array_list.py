@@ -15,6 +15,7 @@ class ArrayList:
         self.size = 0
         self.capacity = 4
         self.arr = [0]*self.capacity 
+        self.is_ordered = True
 
 
     #Time complexity: O(n) - linear time in size of list
@@ -32,28 +33,29 @@ class ArrayList:
         self.insert(value,0)
 
     #Time complexity: O(n) - linear time in size of list
-    def insert(self, value, index):
-        if self.size == self.capacity:
-            self.resize()
-        if self.size < index:
+    def insert(self, value, index, ordered = False):
+        if index > self.size-1 or index < 0:
             raise IndexOutOfBounds
+        if not ordered:
+            self.is_ordered = False
+
+        if self.size+1 == self.capacity:
+            self.resize()
+        
         for index in range(self.size,index-1, -1):
             self.arr[index+1] = self.arr[index] 
         self.arr[index] = value
         self.size += 1
 
     #Time complexity: O(1) - constant time
-    def append(self, value):
-        if self.size == self.capacity:
-            self.resize()
-
-        self.arr[self.size] = value
-        self.size += 1
+    def append(self, value, ordered = False):
+        self.insert(value,self.size, ordered)
 
     #Time complexity: O(1) - constant time
     def set_at(self, value, index):
-        if self.size < index:
+        if index > self.size-1 or index < 0:
             raise IndexOutOfBounds
+        self.is_ordered = False
         self.arr[index] = value
 
     #Time complexity: O(1) - constant time
@@ -64,7 +66,7 @@ class ArrayList:
 
     #Time complexity: O(1) - constant time
     def get_at(self, index):
-        if self.size < index:
+        if index > self.size-1 or index < 0:
             raise IndexOutOfBounds
         return self.arr[index]
 
@@ -88,7 +90,7 @@ class ArrayList:
 
     #Time complexity: O(n) - linear time in size of list
     def remove_at(self, index):
-        if self.size-1 < index or self.size == 0:
+        if index > self.size-1 or index < 0:
             raise IndexOutOfBounds
 
         for index in range(index,self.size-1):
@@ -104,20 +106,56 @@ class ArrayList:
 
     #Time complexity: O(n) - linear time in size of list
     def insert_ordered(self, value):
-        # TODO: remove 'pass' and implement functionality
-        pass
+        if not self.is_ordered:
+            raise NotOrdered
+        for index in range(self.size):
+            if self.arr[index] > value:
+                self.insert(value,index,ordered=True) 
+                return
+        self.append(value,ordered=True)
 
     #Time complexity: O(n) - linear time in size of list
     #Time complexity: O(log n) - logarithmic time in size of list
     def find(self, value):
-        if self.size == 0:
-            raise Empty
+        if self.is_ordered:
+            index = binary_search_recur(self.arr[:self.size],value,0,self.size-1)
+        else:
+            index = search_recur(self.arr,value,self.size-1)
+        
+        if index == None:
+            raise NotFound
+        return index
+        
 
     #Time complexity: O(n) - linear time in size of list
     def remove_value(self, value):
-        # TODO: remove 'pass' and implement functionality
-        pass
+        try:
+            ind = self.find(value)
+            self.remove_at(ind)
+        except NotFound:
+            raise NotFound
+        
 
+def search_recur(lis,val,n):
+    if n < 0:
+        return None
+    if lis[n] == val:
+        return n
+    else:
+        return search_recur(lis,val,n-1) 
+
+def binary_search_recur(lis,val,min,max):
+    middle = (min+max) // 2
+    if min > max:
+        return None
+
+    if val == lis[middle]:
+        return middle
+    elif val > lis[middle]:
+        return binary_search_recur(lis,val,middle+1,max)
+    else:
+        return binary_search_recur(lis,val,min,middle-1)
+        
 
 if __name__ == "__main__":
     pass
@@ -127,10 +165,17 @@ if __name__ == "__main__":
 
     arr_lis = ArrayList()
     # print(str(arr_lis))
-    arr_lis.prepend(4)
-    arr_lis.append(1)
-    arr_lis.insert(10,1)
-    arr_lis.append(12)
+    # arr_lis.insert_ordered(1)
+    # arr_lis.insert_ordered(19)
+    # arr_lis.insert_ordered(4)
+    # arr_lis.insert_ordered(8)
+    # arr_lis.insert_ordered(17)
+    # arr_lis.insert_ordered(19)
+    arr_lis.append(2)
+    arr_lis.append(3)
+    arr_lis.append("abc")
+    arr_lis.append("lol")
+
     print(str(arr_lis))
-    arr_lis.remove_at(1)
-    print(str(arr_lis))
+    print(arr_lis.find(2))
+    
