@@ -125,8 +125,6 @@ class ArrayList:
                 if self.arr[ind] == value:
                     ind = ind
                     break
-            else:
-                raise NotFound
         
         if ind == None:
             raise NotFound
@@ -151,9 +149,9 @@ def binary_search_recur(lis,val,min,max):
     if val == lis[middle]:
         return middle
     elif val > lis[middle]:
-        return binary_search_recur(lis,val,middle-1,max)
+        return binary_search_recur(lis,val,middle+1,max)
     else:
-        return binary_search_recur(lis,val,min,middle+1)
+        return binary_search_recur(lis,val,min,middle-1)
         
 
 if __name__ == "__main__":
@@ -163,21 +161,24 @@ if __name__ == "__main__":
     # and make sure they are at this indent level
 
     arr_lis = ArrayList()
-    # print(str(arr_lis))
-    # arr_lis.insert_ordered(1)
-    # arr_lis.insert_ordered(19)
-    # arr_lis.insert_ordered(4)
-    # arr_lis.insert_ordered(8)
-    # arr_lis.insert_ordered(17)
-    # arr_lis.insert_ordered(19)
-    import random
-    lis = [44, 28, 41, 93, 34, 83, 52, 85, 34, 74, 65, 78, 43, 10, 39, 13, 76, 33, 44, 21, 29, 16, 91, 95, 82, 96, 38, 73, 26, 86, 23, 23]
-    for ind,x in enumerate(lis):
-        arr_lis.append(x)
-        print(f"ind: {ind} of value: {x}")
     print(str(arr_lis))
+    arr_lis.insert_ordered(1)
+    arr_lis.insert_ordered(19)
+    arr_lis.insert_ordered(4)
+    arr_lis.insert_ordered(8)
+    arr_lis.insert_ordered(17)
+    arr_lis.insert_ordered(19)
+    print(str(arr_lis))
+    print(arr_lis.find(1))
 
-    print(arr_lis.find(21))
+    # import random
+    # lis = [44, 28, 41, 93, 34, 83, 52, 85, 34, 74, 65, 78, 43, 10, 39, 13, 76, 33, 44, 21, 29, 16, 91, 95, 82, 96, 38, 73, 26, 86, 23, 23]
+    # for ind,x in enumerate(lis):
+    #     arr_lis.append(x)
+    #     print(f"ind: {ind} of value: {x}")
+    # print(str(arr_lis))
+
+    # print(arr_lis.find(21))
 
 
 
